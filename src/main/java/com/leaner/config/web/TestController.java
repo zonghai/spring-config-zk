@@ -20,7 +20,7 @@ public class TestController {
 
     @GetMapping("/dynamic")
     public String dynamic() {
-        return dynamicProperty.ip + dynamicProperty.port;
+        return dynamicProperty.ip + dynamicProperty.port + dynamicProperty.getTestValue() + dynamicProperty.getTestBool();
     }
 
     @GetMapping("/statics")

@@ -13,6 +13,9 @@ import org.springframework.stereotype.Component;
 public class DynamicProperty {
     public String ip;
     public Integer port;
+    private String testValue;
+    private Boolean testBool;
+    private Boolean testBool2;
 
     public String getIp() {
         return ip;
@@ -28,5 +31,29 @@ public class DynamicProperty {
 
     public void setPort(Integer port) {
         this.port = port;
+    }
+
+    public String getTestValue() {
+        return testValue;
+    }
+
+    public void setTestValue(String testValue) {
+        this.testValue = testValue;
+    }
+
+    public Boolean getTestBool() {
+        return testBool;
+    }
+
+    public void setTestBool(Boolean testBool) {
+        this.testBool = testBool;
+    }
+
+    public Boolean getTestBool2() {
+        return testBool2;
+    }
+
+    public void setTestBool2(Boolean testBool2) {
+        this.testBool2 = testBool2;
     }
 }
