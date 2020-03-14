@@ -23,3 +23,23 @@
 5.源码分析：
 
     @ConfigurationProperties注解和zookeeper的监控机制。
+    @ConfigurationProperties 通过实现beanPostProcessor的方式再对象初始化的时候进程获取有该注解的类；
+    通过ConfigurationPropertiesRebinder进行与对象绑定，同事还实现了 ApplicationListener<EnvironmentChangeEvent>
+    通过实现onApplicationEvent该方法对时间进行监听，实现的动态配置。销毁需要rebind的对象然后重新创建。
+    配置部分 
+    ZookeeperConfigAutoConfiguration 
+    ZookeeperConfigBootstrapConfiguration
+    ApplicationContextInitializer
+    ZookeeperPropertySourceLocator 进行解析zookeeper上的配置（创建连接并获取数据，存储数据）。 
+    watcher 监测到zookeeper变化通知后 发布 RefreshEvent，RefreshEventListener监听 RefreshEvent 然后发布 EnvironmentChangeEvent 事件，
+    ConfigurationPropertiesRebinder监听了该事件；销毁需要rebind的对象然后重新创建。
+    
+    通过 BootstrapConfiguration 进行加载的 加载的过程涉及到spring-factories的加载机制。
+    
+    
+    知识点：ApplicationContextInitializer  ApplicationListener spring boot 配置加载-factoryloader properties赋值。
+    
+    
+    
+    
+    
