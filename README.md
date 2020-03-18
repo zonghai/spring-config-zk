@@ -10,6 +10,7 @@
     /zkCli.sh -server localhost:2181
     创建节点 并赋值
     create /config-zookeeper/ftp/ip "192.168.0.1"
+    create /config-zookeeper/ftp/port "2181111"
     查询节点值
     get /config-zookeeper/ftp/ip
     更新节点值
@@ -24,12 +25,12 @@
 
     @ConfigurationProperties注解和zookeeper的监控机制。
     @ConfigurationProperties 通过实现beanPostProcessor的方式再对象初始化的时候进程获取有该注解的类；
-    通过ConfigurationPropertiesRebinder进行与对象绑定，同事还实现了 ApplicationListener<EnvironmentChangeEvent>
-    通过实现onApplicationEvent该方法对时间进行监听，实现的动态配置。销毁需要rebind的对象然后重新创建。
+    通过 ConfigurationPropertiesRebinder 进行与对象绑定，同时还实现了 ApplicationListener<EnvironmentChangeEvent>
+    通过实现 onApplicationEvent 该方法对时间进行监听，实现的动态配置。销毁需要rebind的对象然后重新创建。
     配置部分 
-    ZookeeperConfigAutoConfiguration 
-    ZookeeperConfigBootstrapConfiguration
-    ApplicationContextInitializer
+    ZookeeperConfigAutoConfiguration  注册zookeeper监听对象 ConfigWatcher
+    ZookeeperConfigBootstrapConfiguration 注册 ZookeeperPropertySourceLocator locator 用户获取对象 参考factoryloader
+    ApplicationContextInitializer 
     ZookeeperPropertySourceLocator 进行解析zookeeper上的配置（创建连接并获取数据，存储数据）。 
     watcher 监测到zookeeper变化通知后 发布 RefreshEvent，RefreshEventListener监听 RefreshEvent 然后发布 EnvironmentChangeEvent 事件，
     ConfigurationPropertiesRebinder监听了该事件；销毁需要rebind的对象然后重新创建。
